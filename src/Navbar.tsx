@@ -1,10 +1,13 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { SearchContext } from "./context";
-
+import { useRef } from "react";
+import { Tooltip } from "./reusable/Tooltip";
 const Navbar = () => {
   const { search, setSearch } = useContext(SearchContext);
-
+  const location = useLocation();
+  const isHistoryPage = location.pathname === "/history";
+  const inputRef = useRef(null);
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
@@ -28,19 +31,30 @@ const Navbar = () => {
             isActive ? "active" : "text-black";
           }}    block mt-4 lg:inline-block  lg:mt-0 transition-all  hover:text-black mr-4`}
         >
-          History {search}
+          History
         </NavLink>
       </div>
       <div className="block">
-        <div className="flex items-center  relative">
+        <div className="flex items-center relative">
           <input
-            className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal"
+            className={`${
+              isHistoryPage ? "opacity-70" : ""
+            } bg-white focus:outline-none  transition-all focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal`}
             type="text"
             placeholder="Search"
             value={search}
             onChange={handleInputChange}
+            disabled={isHistoryPage}
+            ref={inputRef}
           />
-          <div className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center p-1">
+          {isHistoryPage && (
+            <Tooltip
+              hoverRef={inputRef}
+              tooltipText="Only on the home page"
+            ></Tooltip>
+          )}
+
+          {/* <div className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center p-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="1em"
@@ -56,7 +70,7 @@ const Navbar = () => {
                 ></path>
               </g>
             </svg>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>
