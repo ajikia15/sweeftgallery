@@ -29,9 +29,25 @@ export default function Root() {
       });
     }
   }, [debouncedSearch]);
+
+  function deleteHistoryItem(search: string) {
+    setSearchHistory((prevSearchHistory) =>
+      prevSearchHistory.filter((item) => item !== search)
+    );
+    localStorage.setItem(
+      "searchHistory",
+      JSON.stringify(searchHistory.filter((item) => item !== search))
+    );
+  }
   return (
     <SearchContext.Provider
-      value={{ search, setSearch, debouncedSearch, searchHistory }}
+      value={{
+        search,
+        setSearch,
+        debouncedSearch,
+        deleteHistoryItem,
+        searchHistory,
+      }}
     >
       <Navbar />
       <Outlet />

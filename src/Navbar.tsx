@@ -60,7 +60,9 @@ const Navbar = () => {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            className="text-gray-400 absolute left-2"
+            className={`${
+              isHistoryPage ? "text-gray-500" : "text-gray-400 "
+            } absolute left-2 transition-all`}
           >
             <path
               fill="currentColor"

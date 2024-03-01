@@ -2,7 +2,10 @@ import { useContext } from "react";
 import { SearchContext } from "../context";
 
 export default function History() {
-  const { searchHistory } = useContext(SearchContext);
+  const { searchHistory, deleteHistoryItem } = useContext(SearchContext);
+  const handleDelete = (search: string) => {
+    deleteHistoryItem(search);
+  };
   return (
     <div className="text-gray-200 w-full space-y-5 mt-5">
       <h1 className="text-4xl font-bold text-center">Search History</h1>
@@ -25,7 +28,12 @@ export default function History() {
                 <p>{search}</p>
               </div>
               <div className="flex justify-end ">
-                <button className="text-red-500 ">
+                <button
+                  className="text-red-500 "
+                  onClick={() => {
+                    handleDelete(search);
+                  }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="28"
