@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  background-color: #7f362d;
+  background-color: #141617;
 }
 .active {
-  color: rgb(234 179 8);
+  color: #fbbf24;
 }

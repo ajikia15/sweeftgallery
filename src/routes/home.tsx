@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { usePhotos } from "../services/queries";
 import { SearchContext } from "../context";
 import Card from "../reusable/Card";

@@ -22,11 +22,15 @@ export default function Card({ photo }: any) {
         setActivePortal(true);
       }}
     >
-      <img src={photo.urls.small} className="h-full w-full" alt="" />
+      <img
+        src={photo.urls.small}
+        className="h-full w-full  rounded-2xl"
+        alt=""
+      />
       <div
         className={`${
-          activePortal ? "opacity-50" : " opacity-0 group-hover:opacity-50 "
-        } bg-gray-800 transition-opacity absolute inset-0`}
+          activePortal ? "opacity-50" : " opacity-0 group-hover:opacity-50"
+        } bg-gray-800 transition-opacity absolute inset-0  rounded-2xl`}
       ></div>
       {activePortal &&
         createPortal(
