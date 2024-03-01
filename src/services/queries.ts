@@ -4,5 +4,5 @@ export const usePhotos = ({ query, page }: { query: string; page: number }) =>
   useQuery({
     queryKey: [query, String(page)],
     queryFn: () => getPhotos({ query, page }),
-    staleTime: 1000 * 60 * 5, // 5 wuti iqneba cache
+    // staleTime: 1000 * 60 * 5, // 5 wuti iqneba cache
   });

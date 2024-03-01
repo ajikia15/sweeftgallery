@@ -9,14 +9,26 @@ export default function Root() {
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const debouncedSearch = useDebounce(search, 500);
   useEffect(() => {
+    const savedSearchHistory = localStorage.getItem("searchHistory");
+    if (savedSearchHistory) {
+      setSearchHistory(JSON.parse(savedSearchHistory));
+    }
+  }, []);
+
+  useEffect(() => {
     if (debouncedSearch && !searchHistory.includes(debouncedSearch)) {
-      setSearchHistory((prevSearchHistory) => [
-        ...prevSearchHistory,
-        debouncedSearch,
-      ]);
+      setSearchHistory((prevSearchHistory) => {
+        const updatedSearchHistory = [...prevSearchHistory, debouncedSearch];
+
+        localStorage.setItem(
+          "searchHistory",
+          JSON.stringify(updatedSearchHistory)
+        );
+
+        return updatedSearchHistory;
+      });
     }
   }, [debouncedSearch]);
-
   return (
     <SearchContext.Provider
       value={{ search, setSearch, debouncedSearch, searchHistory }}
