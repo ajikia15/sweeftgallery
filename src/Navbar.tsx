@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { SearchContext } from "./context";
 
 const Navbar = () => {
@@ -9,25 +9,27 @@ const Navbar = () => {
     setSearch(event.target.value);
   };
   return (
-    <nav className="flex items-center justify-between p-6 bg-gray-800">
-      <div className="flex items-center flex-shrink-0 text-teal-200 mr-6">
+    <nav className="flex items-center justify-between p-6">
+      <div className="flex items-center flex-shrink-0  mr-6">
         <span className="font-semibold text-xl tracking-tight">Gallery</span>
       </div>
       <div className="block">
-        <div className="text-sm">
-          <Link
-            to="/"
-            className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
-          >
-            Home
-          </Link>
-          <Link
-            to="/history"
-            className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
-          >
-            History {search}
-          </Link>
-        </div>
+        <NavLink
+          to="/"
+          className={`${(isActive: boolean) => {
+            isActive ? "active" : "text-black";
+          }}    block mt-4 lg:inline-block  lg:mt-0 transition-all  hover:text-black mr-4`}
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/history"
+          className={`${(isActive: boolean) => {
+            isActive ? "active" : "text-black";
+          }}    block mt-4 lg:inline-block  lg:mt-0 transition-all  hover:text-black mr-4`}
+        >
+          History {search}
+        </NavLink>
       </div>
       <div className="block">
         <div className="flex items-center  relative">
