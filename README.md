@@ -8,4 +8,4 @@ Simple gallery website which leverages Unsplash API using React Query + Typescri
 3. `npm install`
 4. `npm run dev`
 
-I would never make .env variables public but since it's limited to 50 calls/hour, there's not much to abuse.
+I would never make .env variables public but since Unsplash's API limits to calls to 50/hour, there's not much to abuse.
