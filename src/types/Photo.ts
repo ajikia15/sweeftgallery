@@ -8,9 +8,10 @@ export interface Photo {
     download: string;
   };
 }
-export interface IndividualPhoto extends Photo {
-  views: number;
+export interface Statistics {
+  likes: number;
   downloads: number;
+  views: number;
 }
 
 export type InfinitePhotosResponse = {

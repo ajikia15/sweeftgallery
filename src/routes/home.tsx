@@ -1,11 +1,9 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect } from "react";
 import { SearchContext } from "../context";
 import Card from "../reusable/Card";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getInfinitePhotos } from "../services/api";
 import { useInView } from "react-intersection-observer";
-import { InfinitePhotosResponse, Photo } from "../types/Photo";
 import { useInfinitePhotos } from "../services/queries";
+import { Photo } from "../types/Photo";
 export default function Home() {
   const { debouncedSearch } = useContext(SearchContext);
   const { ref, inView } = useInView();

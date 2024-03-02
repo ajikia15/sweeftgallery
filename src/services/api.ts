@@ -1,5 +1,5 @@
 import axios from "axios";
-import { InfinitePhotosResponse } from "../types/Photo";
+import { InfinitePhotosResponse, Statistics } from "../types/Photo";
 
 const BASE_URL = "https://api.unsplash.com";
 const clientKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
@@ -33,4 +33,12 @@ export const getInfinitePhotos = async (
       currentPage: pageParam,
     });
   });
+};
+
+export const getStatistics = async (id: string): Promise<Statistics> => {
+  const response = await axios.get(
+    `${BASE_URL}/photos/${id}?client_id=${clientKey}`
+  );
+  const { data } = response;
+  return data;
 };
