@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Modal from "./Modal";
-
-export default function Card({ photo }: any) {
+import { Photo } from "../types/Photo";
+interface CardProps {
+  photo: Photo;
+}
+export default function Card({ photo }: CardProps) {
   const [activePortal, setActivePortal] = useState(false);
   useEffect(() => {
     if (activePortal) {

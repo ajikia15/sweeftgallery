@@ -4,16 +4,14 @@ import Card from "../reusable/Card";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getInfinitePhotos } from "../services/api";
 import { useInView } from "react-intersection-observer";
+import { InfinitePhotosResponse, Photo } from "../types/Photo";
+import { useInfinitePhotos } from "../services/queries";
 export default function Home() {
   const { debouncedSearch } = useContext(SearchContext);
   const { ref, inView } = useInView();
-
-  const photosQuery = useInfiniteQuery({
-    queryKey: ["photos", debouncedSearch],
-    queryFn: ({ pageParam = 1 }) =>
-      getInfinitePhotos(debouncedSearch || "cats", pageParam),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage: any) => lastPage.nextPage,
+  const photosQuery = useInfinitePhotos({
+    query: debouncedSearch || "cats",
+    pageParam: 1,
   });
 
   useEffect(() => {
@@ -31,7 +29,7 @@ export default function Home() {
     <>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 grid-rows-1 mx-auto max-w-[1600px] lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-7 lg:gap-9 xl:gap-10 space-y-5 md:space-y-7 lg:space-y-9 xl:space-y-10">
         {photosQuery.data?.pages.map((page) => {
-          return page.data.map((photo: any) => (
+          return page.data.map((photo: Photo) => (
             <Card key={photo.id} photo={photo} />
           ));
         })}
