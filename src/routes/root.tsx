@@ -50,6 +50,10 @@ export default function Root() {
       JSON.stringify(searchHistory.filter((item) => item !== search))
     );
   }
+  function clearHistory() {
+    setSearchHistory([]);
+    localStorage.removeItem("searchHistory");
+  }
   return (
     <SearchContext.Provider
       value={{
@@ -58,6 +62,7 @@ export default function Root() {
         debouncedSearch,
         deleteHistoryItem,
         searchHistory,
+        clearHistory,
       }}
     >
       <Navbar />

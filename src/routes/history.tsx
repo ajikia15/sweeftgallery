@@ -2,20 +2,26 @@ import { useContext } from "react";
 import { SearchContext } from "../context";
 
 export default function History() {
-  const { searchHistory, deleteHistoryItem } = useContext(SearchContext);
+  const { searchHistory, deleteHistoryItem, clearHistory } =
+    useContext(SearchContext);
   const handleDelete = (search: string) => {
     deleteHistoryItem(search);
   };
   return (
     <div className="text-gray-200 w-full space-y-5 mt-5">
       <h1 className="text-4xl font-bold text-center">Search History</h1>
+      <h3 className="text-xl font-bold text-center text-gray-400">
+        (Most recent to oldest){" "}
+      </h3>
       <div className="divide-y divide-gray-700 w-11/12 md:w-4/5 mx-auto rounded-ee-lg">
         <div className="grid grid-cols-2 gap-4 h-14 items-center px-5 bg-neutral-950 rounded-t-lg">
           <div>
             <p>Searched</p>
           </div>
           <div className="flex justify-end ">
-            <p className="">Delete</p>
+            <button className="" onClick={clearHistory}>
+              Clear all history
+            </button>
           </div>
         </div>
         {searchHistory

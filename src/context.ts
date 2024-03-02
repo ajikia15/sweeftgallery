@@ -6,6 +6,7 @@ type SearchContextType = {
   debouncedSearch: string;
   searchHistory: string[];
   deleteHistoryItem: (item: string) => void;
+  clearHistory: () => void;
 };
 
 export const SearchContext = createContext<SearchContextType>({
@@ -14,4 +15,5 @@ export const SearchContext = createContext<SearchContextType>({
   debouncedSearch: "",
   searchHistory: [],
   deleteHistoryItem: () => {},
+  clearHistory: () => {},
 });

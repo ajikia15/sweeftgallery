@@ -14,6 +14,22 @@ export const getPhotos = async ({
   );
   const { data } = response;
 
-  console.log(data);
   return data;
+};
+
+export const getInfinitePhotos = async (
+  query: string,
+  pageParam: number
+): Promise<any> => {
+  const response = await axios.get(
+    `${BASE_URL}/search/photos?query=${query}&client_id=${clientKey}&per_page=20&page=${pageParam}`
+  );
+  const { data } = response;
+  return new Promise((resolve) => {
+    resolve({
+      data: data.results,
+      nextPage: data.results.total_pages > pageParam ? pageParam + 1 : null,
+      currentPage: pageParam,
+    });
+  });
 };
