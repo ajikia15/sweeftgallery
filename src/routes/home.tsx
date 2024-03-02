@@ -1,24 +1,13 @@
-import { useContext, useEffect } from "react";
-import { usePhotos } from "../services/queries";
+import { useContext, useEffect, useRef } from "react";
 import { SearchContext } from "../context";
 import Card from "../reusable/Card";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getInfinitePhotos } from "../services/api";
 import { useInView } from "react-intersection-observer";
-import SkeletonCard from "../reusable/SkeletonCard";
-
 export default function Home() {
   const { debouncedSearch } = useContext(SearchContext);
-
-  // const photosQuery = usePhotos({ query: debouncedSearch || "cats", page: 1 });
-
-  // if (photosQuery.isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (photosQuery.isError) {
-  //   return <div>Error: {photosQuery.error.message}</div>;
-  // }
   const { ref, inView } = useInView();
+
   const photosQuery = useInfiniteQuery({
     queryKey: ["photos", debouncedSearch],
     queryFn: ({ pageParam = 1 }) =>
