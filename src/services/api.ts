@@ -3,15 +3,9 @@ import { InfinitePhotosResponse, Statistics } from "../types/Photo";
 
 const BASE_URL = "https://api.unsplash.com";
 const clientKey = import.meta.env.VITE_UNSPLASH_ACCESS_KEY;
-export const getPhotos = async ({
-  query,
-  page,
-}: {
-  query: string;
-  page: number;
-}) => {
+export const getPhotos = async () => {
   const response = await axios.get(
-    `${BASE_URL}/search/photos?query=${query}&client_id=${clientKey}&per_page=20&page=${page}`
+    `${BASE_URL}/photos?per_page=20&client_id=${clientKey}&page=1&order_by=popular&orientation=portrait`
   );
   const { data } = response;
 
@@ -23,7 +17,7 @@ export const getInfinitePhotos = async (
   pageParam: number
 ): Promise<InfinitePhotosResponse> => {
   const response = await axios.get(
-    `${BASE_URL}/search/photos?query=${query}&client_id=${clientKey}&per_page=20&page=${pageParam}`
+    `${BASE_URL}/search/photos?query=${query}&client_id=${clientKey}&per_page=20&page=${pageParam}&orientation=portrait`
   );
   const { data } = response;
   return new Promise((resolve) => {

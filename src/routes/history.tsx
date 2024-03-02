@@ -1,12 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../context";
 import { useInfinitePhotos } from "../services/queries";
 import { Photo } from "../types/Photo";
 import Card from "../reusable/Card";
+import { useInView } from "react-intersection-observer";
 export default function History() {
-  const [search, setSearch] = useState("");
   const { searchHistory, deleteHistoryItem, clearHistory } =
     useContext(SearchContext);
+  const { ref, inView } = useInView();
+
+  const [search, setSearch] = useState("");
+
   const handleDelete = (search: string) => {
     deleteHistoryItem(search);
   };
@@ -17,17 +21,27 @@ export default function History() {
     query: search,
     pageParam: 1,
   });
+  useEffect(() => {
+    if (inView) {
+      photoHistoryQuery.fetchNextPage();
+    }
+  }, [inView, photoHistoryQuery.fetchNextPage]);
   if (search !== "")
     return (
       <div className="text-gray-200">
-        <h1>Results for {search}:</h1>
-        <ul>
+        <h1 className="font-bold font-3xl text-center">
+          Results for {search}:
+        </h1>
+        <ul className="mt-8 w-full grid grid-cols-1 md:grid-cols-2 grid-rows-1 mx-auto max-w-[1600px] lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-7 lg:gap-9 xl:gap-10 ">
           {photoHistoryQuery.data?.pages.map((page) => {
             return page.data.map((photo: Photo) => (
               <Card key={photo.id} photo={photo} />
             ));
           })}
         </ul>
+        <div className="h-[50vh] w-25 " ref={ref}>
+          <div className=" bg-neutral-900 opacity-90 animate-pulse text-neutral-900"></div>
+        </div>
       </div>
     );
   else

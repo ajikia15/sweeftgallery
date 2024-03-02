@@ -1,10 +1,10 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { getInfinitePhotos, getPhotos, getStatistics } from "./api";
 import { InfinitePhotosResponse } from "../types/Photo";
-export const usePhotos = ({ query, page }: { query: string; page: number }) =>
+export const usePhotos = () =>
   useQuery({
-    queryKey: [query, String(page)],
-    queryFn: () => getPhotos({ query, page }),
+    queryKey: ["photos1"],
+    queryFn: () => getPhotos(),
     // staleTime: 1000 * 60 * 5, // 5 wuti iqneba cache
   });
 
