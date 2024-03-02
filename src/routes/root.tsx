@@ -16,17 +16,28 @@ export default function Root() {
   }, []);
 
   useEffect(() => {
-    if (debouncedSearch && !searchHistory.includes(debouncedSearch)) {
-      setSearchHistory((prevSearchHistory) => {
-        const updatedSearchHistory = [...prevSearchHistory, debouncedSearch];
-
-        localStorage.setItem(
-          "searchHistory",
-          JSON.stringify(updatedSearchHistory)
+    if (debouncedSearch && debouncedSearch !== " ") {
+      if (searchHistory.includes(debouncedSearch)) {
+        // if duplicate, remove and add to the end
+        setSearchHistory(
+          searchHistory.filter((item) => item !== debouncedSearch)
         );
+        setSearchHistory((prevSearchHistory) => [
+          ...prevSearchHistory,
+          debouncedSearch,
+        ]);
+      } else {
+        setSearchHistory((prevSearchHistory) => {
+          const updatedSearchHistory = [...prevSearchHistory, debouncedSearch];
 
-        return updatedSearchHistory;
-      });
+          localStorage.setItem(
+            "searchHistory",
+            JSON.stringify(updatedSearchHistory)
+          );
+
+          return updatedSearchHistory;
+        });
+      }
     }
   }, [debouncedSearch]);
 

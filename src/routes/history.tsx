@@ -18,8 +18,10 @@ export default function History() {
             <p className="">Delete</p>
           </div>
         </div>
-        {searchHistory.map((search) =>
-          search !== "" ? (
+        {searchHistory
+          .slice()
+          .reverse()
+          .map((search) => (
             <div
               key={search}
               className="grid grid-cols-2 gap-4 h-14 items-center px-5 hover:bg-neutral-800"
@@ -48,8 +50,7 @@ export default function History() {
                 </button>
               </div>
             </div>
-          ) : null
-        )}
+          ))}
       </div>
     </div>
   );
