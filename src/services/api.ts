@@ -28,7 +28,7 @@ export const getInfinitePhotos = async (
   return new Promise((resolve) => {
     resolve({
       data: data.results,
-      nextPage: data.results.total_pages > pageParam ? pageParam + 1 : null,
+      nextPage: pageParam + 1 <= data.total_pages ? pageParam + 1 : null, // yes!!!!!
       currentPage: pageParam,
     });
   });
