@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { SearchContext } from "../context";
+import { useInfinitePhotos } from "../services/queries";
 
 export default function History() {
   const { searchHistory, deleteHistoryItem, clearHistory } =
@@ -9,6 +10,10 @@ export default function History() {
   };
   const handleHistorySearch = (search: string) => {
     console.log(search);
+    const photoHistoryQuery = useInfinitePhotos({
+      query: search,
+      pageParam: 1,
+    });
   };
   return (
     <div className="text-gray-200 w-full space-y-5 mt-5">
