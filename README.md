@@ -1,4 +1,4 @@
-# sweeftgallery
+# sweeftGallery
 
 Simple gallery website which leverages Unsplash API using React Query + Typescript. Working search and history with caching and infinite scrolling. 
 
