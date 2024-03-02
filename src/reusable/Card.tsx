@@ -7,11 +7,20 @@ interface CardProps {
 }
 export default function Card({ photo }: CardProps) {
   const [activePortal, setActivePortal] = useState(false);
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setActivePortal(false);
+    }
+  };
+
   useEffect(() => {
     if (activePortal) {
       document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown); // :S
     } else {
       document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
