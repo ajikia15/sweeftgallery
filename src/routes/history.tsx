@@ -7,7 +7,9 @@ export default function History() {
   const handleDelete = (search: string) => {
     deleteHistoryItem(search);
   };
-
+  const handleHistorySearch = (search: string) => {
+    console.log(search);
+  };
   return (
     <div className="text-gray-200 w-full space-y-5 mt-5">
       <h1 className="text-4xl font-bold text-center">Search History</h1>
@@ -31,6 +33,9 @@ export default function History() {
           .map((search) => (
             <li
               key={search}
+              onClick={() => {
+                handleHistorySearch(search);
+              }}
               className="grid grid-cols-2 gap-4 h-14 items-center px-5 hover:bg-neutral-800"
             >
               <div>
@@ -39,7 +44,8 @@ export default function History() {
               <div className="flex justify-end ">
                 <button
                   className="text-red-500 "
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     handleDelete(search);
                   }}
                 >

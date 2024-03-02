@@ -22,10 +22,8 @@ export default function Home() {
     }
   }, [inView, photosQuery.fetchNextPage]);
   if (photosQuery.isLoading) {
-    console.log(photosQuery.isLoading);
     return <div>loading...</div>;
   } else if (photosQuery.isError) {
-    console.log(photosQuery.error);
     return <div>error: {photosQuery.error.message}</div>;
   }
 
